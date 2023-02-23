@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
 import { Post as PostDB } from '@prisma/client';
 
 @Controller('posts')
@@ -31,10 +30,10 @@ export class PostsController {
     return this.postsService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postsService.update(+id, updatePostDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
+  //   return this.postsService.update(+id, updatePostDto);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {

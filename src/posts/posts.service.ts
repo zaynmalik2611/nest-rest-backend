@@ -8,8 +8,19 @@ import { UpdatePostDto } from './dto/update-post.dto';
 export class PostsService {
   constructor(private prisma: PrismaService) {}
 
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
+  async create(createPostDto: CreatePostDto): Promise<Post> {
+    const { title, content, userId } = createPostDto;
+    return await this.prisma.post.create({
+      data: {
+        title,
+        content,
+        user: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
+    });
   }
 
   async findAll(): Promise<Post[]> {
