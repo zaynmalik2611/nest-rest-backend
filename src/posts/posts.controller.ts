@@ -10,6 +10,7 @@ import {
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { Post as PostDB } from '@prisma/client';
+import { PostDto } from './dto/post.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -21,7 +22,7 @@ export class PostsController {
   }
 
   @Get()
-  findAll(): Promise<PostDB[]> {
+  findAll(): Promise<PostDto[]> {
     return this.postsService.findAll();
   }
 
@@ -36,7 +37,7 @@ export class PostsController {
   // }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: number): Promise<PostDB> {
     return this.postsService.remove(+id);
   }
 }
