@@ -48,7 +48,11 @@ export class CommentsService {
     return `This action updates a #${id} comment`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} comment`;
+  async remove(id: number): Promise<Comment> {
+    return await this.prisma.comment.delete({
+      where: {
+        id,
+      },
+    });
   }
 }

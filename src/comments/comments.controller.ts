@@ -44,7 +44,7 @@ export class CommentsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.commentsService.remove(+id);
+  async remove(@Param('id') id: number): Promise<Comment> {
+    return await this.commentsService.remove(id);
   }
 }
