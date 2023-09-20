@@ -21,9 +21,12 @@ export class AuthService {
     }
 
     const userExists = await this.findUserByEmail(user.email);
-
     if (!userExists) {
-      return this.registerUser(user);
+      console.log("here");
+      return this.registerUser({
+        email: user.email,
+        username: user.firstName + " " + user.lastName,
+      });
     }
 
     return this.generateJwt({
@@ -34,13 +37,14 @@ export class AuthService {
 
   async registerUser(user: RegisterUserDto) {
     try {
+      console.log("entered this zone");
       const newUser = await this.prisma.user.create({
         data: {
           email: user.email,
           username: user.username,
         },
       });
-
+      console.log("created", newUser);
       return this.generateJwt({
         sub: newUser.id,
         email: newUser.email,
